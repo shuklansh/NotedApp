@@ -1,5 +1,6 @@
 package com.shuklansh.notesdiroomprac
 
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.lifecycle.ViewModel
@@ -8,6 +9,7 @@ import com.shuklansh.notesdiroomprac.NoteData.NoteEvents
 import com.shuklansh.notesdiroomprac.NoteData.NoteState
 import com.shuklansh.notesdiroomprac.data.Note
 import com.shuklansh.notesdiroomprac.data.NoteDao
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
@@ -16,21 +18,51 @@ class MainViewModel(
 ) : ViewModel() {
 
 
-    private val _mutStateNote = MutableStateFlow(Note("",""))
-
+    private val _mutStateNote = MutableStateFlow(Note("","Heading"))
 
     private val _noteFromDb = _mutStateNote.flatMapLatest {
         dao.getTheNote()
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), Note("","Heading"))
 
+
     private var _noteState = MutableStateFlow(NoteState())
 
+    private var _exists = MutableStateFlow(false)
 
-    val noteState = combine(_noteState,_noteFromDb) { noteState,noteFromDb->
+    private val _existStatus = _exists.flatMapLatest {
+        dao.hasItem()
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), false)
+
+    val noteState = combine(_noteState,_noteFromDb,_existStatus) { noteState,noteFromDb,exist->
         noteState.copy(
-            noteFromDb = noteFromDb
+            noteFromDb = if (exist){noteFromDb}else{_mutStateNote.value}
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), NoteState())
+
+    init {
+        viewModelScope.launch(Dispatchers.IO) {
+
+            dao.getTheNote().distinctUntilChanged().collect{ noteStoredInDb->
+                if(noteStoredInDb!=null){
+                    _noteState.update {
+                        it.copy(
+                            content = noteStoredInDb.content
+                        )
+                    }
+
+                }
+                else{
+                    _noteState.update {
+                        it.copy(
+                            content = ""
+                        )
+                    }
+                }
+            }
+
+        }
+
+    }
 
 
 //    fun checkIfNoteNotThere() : String{
@@ -55,6 +87,8 @@ class MainViewModel(
 //
 //
 //    }
+
+
 
 
     fun onEvent(event : NoteEvents){

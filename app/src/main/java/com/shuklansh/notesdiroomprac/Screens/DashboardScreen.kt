@@ -11,6 +11,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
@@ -38,8 +39,6 @@ class DashboardScreen : Fragment() {
             setContent {
 
 
-
-
                 val db by lazy {
                     Room.databaseBuilder(
                         context = context,
@@ -62,22 +61,46 @@ class DashboardScreen : Fragment() {
 
                 val state = vm.noteState.collectAsState().value
 
-                var text by remember {
-                    mutableStateOf(state.noteFromDb.content)
-                }
-
-
                 Scaffold(Modifier.fillMaxSize()) {
 
+//                    LaunchedEffect(key1 = true){
+//                        vm.onEvent(NoteEvents.setNoteContent(state.noteFromDb.content))
+//                    }
 
-                    Column(Modifier.fillMaxSize(), horizontalAlignment = Alignment.End) {
+                    Column(
+                        Modifier
+                            .fillMaxSize()
+                            .padding(4.dp), horizontalAlignment = Alignment.End
+                    ) {
 
                         TextField(
-                            value = state.noteFromDb.content,
+                            value = state.content 
+                            //state.noteFromDb.content
+
+                            //state.content
+//                            if (state.noteFromDb != null) {
+//                                state.noteFromDb.content
+//                            } else {
+//                                text
+//                            }
+                            ,
                             onValueChange = {
+
+//                                state.noteFromDb.content = it
+//                                vm.onEvent(NoteEvents.setNoteContent(it))
+
+                                //state.noteFromDb.content = it
 //                                state.content = it
-                                state.noteFromDb.content = it
                                 vm.onEvent(NoteEvents.setNoteContent(it))
+
+//                                if (state.noteFromDb != null) {
+//                                    state.noteFromDb.content = it
+//                                    vm.onEvent(NoteEvents.setNoteContent(it))
+//                                } else {
+//                                    text = it
+//                                    vm.onEvent(NoteEvents.setNoteContent(it))
+//                                }
+
                             },
                             modifier = Modifier
                                 .fillMaxWidth()

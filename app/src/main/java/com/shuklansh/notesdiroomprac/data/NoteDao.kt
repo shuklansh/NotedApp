@@ -15,4 +15,7 @@ interface NoteDao {
     @Query("SELECT * FROM Note")
     fun getTheNote() : Flow<Note>
 
+    @Query("SELECT EXISTS(SELECT * FROM Note)")
+    fun hasItem(): Flow<Boolean>
+
 }

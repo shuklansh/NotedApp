@@ -3,8 +3,8 @@ package com.shuklansh.notesdiroomprac.NoteData
 import com.shuklansh.notesdiroomprac.data.Note
 
 data class NoteState(
-    val noteFromDb : Note = Note("",""),
-    val content : String = "",
-    val heading : String = ""
+    var noteFromDb : Note? = Note("",""),
+    var content : String = "",
+    var heading : String = ""
 
 )
