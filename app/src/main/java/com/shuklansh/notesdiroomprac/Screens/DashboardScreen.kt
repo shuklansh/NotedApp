@@ -6,14 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.viewModels
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
@@ -61,7 +68,28 @@ class DashboardScreen : Fragment() {
 
                 val state = vm.noteState.collectAsState().value
 
-                Scaffold(Modifier.fillMaxSize()) {
+                Scaffold(Modifier.fillMaxSize(),
+                    floatingActionButton = {
+                        FloatingActionButton(
+                            onClick = {
+                                vm.onEvent(NoteEvents.saveNote)
+
+                            },
+                            content = {
+                                IconButton(onClick = { vm.onEvent(NoteEvents.saveNote) }) {
+                                    Icon(
+                                        imageVector = Icons.Default.Add,
+                                        tint = Color(175, 135, 245, 255),
+                                        contentDescription = "SaveNote"
+                                    )
+                                }
+                            },
+                            contentColor = Color.Black,
+                            backgroundColor = Color(56, 37, 88, 255)
+                        )
+                    }
+                ) {
+
 
 //                    LaunchedEffect(key1 = true){
 //                        vm.onEvent(NoteEvents.setNoteContent(state.noteFromDb.content))
@@ -70,11 +98,12 @@ class DashboardScreen : Fragment() {
                     Column(
                         Modifier
                             .fillMaxSize()
-                            .padding(4.dp), horizontalAlignment = Alignment.End
+                            .background(Color(27, 27, 27, 255))
+                            .padding(12.dp), horizontalAlignment = Alignment.End
                     ) {
 
                         TextField(
-                            value = state.content 
+                            value = state.content,
                             //state.noteFromDb.content
 
                             //state.content
@@ -83,7 +112,6 @@ class DashboardScreen : Fragment() {
 //                            } else {
 //                                text
 //                            }
-                            ,
                             onValueChange = {
 
 //                                state.noteFromDb.content = it
@@ -104,7 +132,10 @@ class DashboardScreen : Fragment() {
                             },
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .fillMaxHeight(0.9f),
+                                .fillMaxHeight(1f)
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(Color(109, 70, 177, 255))
+                                .verticalScroll(rememberScrollState()),
 
                             )
 
@@ -117,9 +148,13 @@ class DashboardScreen : Fragment() {
 
                         Spacer(Modifier.height(8.dp))
 
-                        IconButton(onClick = { vm.onEvent(NoteEvents.saveNote) }) {
-                            Icon(imageVector = Icons.Default.Add, contentDescription = "SaveNote")
-                        }
+//                        IconButton(onClick = { vm.onEvent(NoteEvents.saveNote) }) {
+//                            Icon(
+//                                imageVector = Icons.Default.AddCircle,
+//                                tint =Color(109, 70, 177, 255),
+//                                contentDescription = "SaveNote"
+//                            )
+//                        }
 
                     }
 
