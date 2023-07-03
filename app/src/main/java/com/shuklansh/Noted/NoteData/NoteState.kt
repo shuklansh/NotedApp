@@ -1,6 +1,6 @@
-package com.shuklansh.notesdiroomprac.NoteData
+package com.shuklansh.Noted.NoteData
 
-import com.shuklansh.notesdiroomprac.data.Note
+import com.shuklansh.Noted.data.Note
 
 data class NoteState(
     var noteFromDb : Note? = Note("",""),

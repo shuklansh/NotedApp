@@ -1,4 +1,4 @@
-package com.shuklansh.notesdiroomprac.data
+package com.shuklansh.Noted.data
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow

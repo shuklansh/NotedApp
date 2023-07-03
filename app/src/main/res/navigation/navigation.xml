@@ -6,7 +6,7 @@
     app:startDestination="@id/dashboardScreen">
     <fragment
         android:id="@+id/dashboardScreen"
-        android:name="com.shuklansh.notesdiroomprac.Screens.DashboardScreen"
+        android:name="com.shuklansh.Noted.Screens.DashboardScreen"
         android:label="fragment_dashboard_screen"
         tools:layout="@layout/fragment_dashboard_screen" />
 </navigation>

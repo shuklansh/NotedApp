@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace 'com.shuklansh.notesdiroomprac'
+    namespace 'com.shuklansh.Noted'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.shuklansh.notesdiroomprac"
+        applicationId "com.shuklansh.Noted"
         minSdk 21
         targetSdk 33
         versionCode 1
@@ -74,5 +74,6 @@ dependencies {
     //room
     implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+
 
 }

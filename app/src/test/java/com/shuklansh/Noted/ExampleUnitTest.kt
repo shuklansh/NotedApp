@@ -1,4 +1,4 @@
-package com.shuklansh.notesdiroomprac
+package com.shuklansh.Noted
 
 import org.junit.Test
 

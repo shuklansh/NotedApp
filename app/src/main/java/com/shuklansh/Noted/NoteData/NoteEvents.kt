@@ -1,6 +1,4 @@
-package com.shuklansh.notesdiroomprac.NoteData
-
-import com.shuklansh.notesdiroomprac.data.Note
+package com.shuklansh.Noted.NoteData
 
 sealed class NoteEvents{
 

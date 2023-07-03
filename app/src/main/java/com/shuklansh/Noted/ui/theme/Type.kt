@@ -1,4 +1,4 @@
-package com.shuklansh.notesdiroomprac.ui.theme
+package com.shuklansh.Noted.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

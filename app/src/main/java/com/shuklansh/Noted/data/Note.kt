@@ -1,4 +1,4 @@
-package com.shuklansh.notesdiroomprac.data
+package com.shuklansh.Noted.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

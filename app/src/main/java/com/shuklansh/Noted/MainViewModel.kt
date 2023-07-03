@@ -1,14 +1,11 @@
-package com.shuklansh.notesdiroomprac
+package com.shuklansh.Noted
 
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.shuklansh.notesdiroomprac.NoteData.NoteEvents
-import com.shuklansh.notesdiroomprac.NoteData.NoteState
-import com.shuklansh.notesdiroomprac.data.Note
-import com.shuklansh.notesdiroomprac.data.NoteDao
+import com.shuklansh.Noted.NoteData.NoteEvents
+import com.shuklansh.Noted.NoteData.NoteState
+import com.shuklansh.Noted.data.Note
+import com.shuklansh.Noted.data.NoteDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch

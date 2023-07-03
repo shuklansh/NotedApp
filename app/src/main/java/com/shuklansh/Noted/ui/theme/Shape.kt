@@ -1,4 +1,4 @@
-package com.shuklansh.notesdiroomprac.ui.theme
+package com.shuklansh.Noted.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes
